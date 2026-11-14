@@ -17,9 +17,11 @@ jobs:
           node-version: 20
           cache: npm
 
-      - run: npm ci --workspaces
-      - run: npm run build --workspaces --if-present
-      - run: npm run typecheck --workspaces --if-present
+      # Install root + workspaces (plain `npm ci --workspaces` skips root devDeps / tsc)
+      - run: npm ci
+      - run: npm run build -w @ilmora/bc-types
+      - run: npm run build -w @ilmora/bc-client
+      - run: npm test -w @ilmora/bc-client
 
   python-check:
     name: Python SDK
