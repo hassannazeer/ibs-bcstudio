@@ -1,0 +1,28 @@
+{
+  "name": "ibs-bcstudio",
+  "version": "0.0.1",
+  "private": true,
+  "description": "IBS BCStudio \u2014 Business Central SDK for Microsoft Dynamics 365 by Ilmora",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm test --workspaces --if-present",
+    "lint": "eslint packages/*/src/**/*.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0",
+    "eslint": "^8.57.0"
+  },
+  "author": "Ilmora <dev@ilmora.tech>",
+  "homepage": "https://ilmora.tech",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ilmora-tech/ibs-bcstudio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ilmora-tech/ibs-bcstudio/issues"
+  }
+}

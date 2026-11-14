@@ -1,0 +1,26 @@
+{
+  "name": "@ilmora/bc-metadata",
+  "version": "0.1.0",
+  "description": "Discover BC API endpoints and parse $metadata schemas at runtime",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch"
+  },
+  "dependencies": {
+    "@ilmora/bc-client": "*",
+    "@ilmora/bc-types": "*",
+    "fast-xml-parser": "^4.3.0"
+  },
+  "keywords": ["business-central", "bc", "odata", "metadata", "schema"],
+  "license": "MIT"
+}

@@ -1,0 +1,23 @@
+{
+    "name": "ilmora/ibs-bcstudio",
+    "description": "Production-grade PHP SDK for Microsoft Dynamics 365 Business Central OData v4 API",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "IbsBCStudio\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IbsBCStudio\\Tests\\": "tests/"
+        }
+    }
+}
