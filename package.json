@@ -9,7 +9,8 @@
   "scripts": {
     "build": "npm run build --workspaces",
     "test": "npm test --workspaces --if-present",
-    "lint": "eslint packages/*/src/**/*.ts"
+    "lint": "eslint packages/*/src/**/*.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
     "typescript": "^5.4.0",
@@ -17,12 +18,12 @@
     "eslint": "^8.57.0"
   },
   "author": "Ilmora <dev@ilmora.tech>",
-  "homepage": "https://ilmora.tech",
+  "homepage": "https://github.com/hassannazeer/ibs-bcstudio#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ilmora-tech/ibs-bcstudio.git"
+    "url": "https://github.com/hassannazeer/ibs-bcstudio.git"
   },
   "bugs": {
-    "url": "https://github.com/ilmora-tech/ibs-bcstudio/issues"
+    "url": "https://github.com/hassannazeer/ibs-bcstudio/issues"
   }
 }

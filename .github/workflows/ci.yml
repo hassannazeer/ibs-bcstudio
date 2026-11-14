@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  typecheck:
+    name: Typecheck & lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci --workspaces
+      - run: npm run build --workspaces --if-present
+      - run: npm run typecheck --workspaces --if-present
+
+  python-check:
+    name: Python SDK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -e "sdks/python[supabase,sqlserver]" --break-system-packages 2>/dev/null || pip install -e "sdks/python[supabase,sqlserver]"
+      - run: python -c "from bcstudio import BCClient, ODataBuilder, BCMetadata, BCSyncEngine; print('✓ all imports OK')"

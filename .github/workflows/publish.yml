@@ -1,0 +1,70 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish-npm:
+    name: Publish to npm (@ilmora)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # for npm provenance
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - run: npm ci --workspaces
+      - run: npm run build --workspaces --if-present
+
+      # Publish each package (skip private/root)
+      - name: Publish @ilmora/bc-types
+        run: npm publish --access public --provenance
+        working-directory: packages/types
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @ilmora/bc-client
+        run: npm publish --access public --provenance
+        working-directory: packages/client
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @ilmora/bc-metadata
+        run: npm publish --access public --provenance
+        working-directory: packages/metadata
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @ilmora/bc-sync
+        run: npm publish --access public --provenance
+        working-directory: packages/sync
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-pypi:
+    name: Publish to PyPI (ibs-bcstudio)
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # for PyPI trusted publishing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install build
+      - run: python -m build
+        working-directory: sdks/python
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: sdks/python/dist/
+          # Uses OIDC trusted publishing — no token needed
+          # Configure at: pypi.org → Your projects → ibs-bcstudio → Publishing → GitHub Actions
