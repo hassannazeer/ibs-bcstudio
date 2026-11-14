@@ -360,7 +360,7 @@ export class BCClient {
 
     while (currentUrl) {
       if (page > 0) await new Promise(r => setTimeout(r, delay));
-      const resp = await this.executeWithRetry<BCListResponse<T>>(
+      const resp: BCResponse<BCListResponse<T>> = await this.executeWithRetry<BCListResponse<T>>(
         currentUrl, 'GET', undefined, undefined, opts?.maxRetries, opts?.headers,
       );
       if (!resp.success || !resp.data) break;
@@ -432,18 +432,24 @@ export class BCClient {
    * Call a BC bound action (POST to entity with action name in URL).
    *
    * BC bound actions follow the pattern:
-   *   POST /salesOrders(GUID)/Microsoft.NAV.makeInvoice
+   *   POST /salesOrders(GUID)/Microsoft.NAV.shipAndInvoice
    *
-   * Common actions:
-   *   Sales Orders  → Microsoft.NAV.makeInvoice | makeQuote | post | reopen | releaseOrder
-   *   Sales Invoice → Microsoft.NAV.post | send | cancel | cancelAndCreateCreditMemo
-   *   Purchase Order→ Microsoft.NAV.post | reopen
+   * Standard API v2.0 actions (examples):
+   *   Sales Orders    → Microsoft.NAV.shipAndInvoice
+   *   Purchase Orders → Microsoft.NAV.receiveAndInvoice
+   *   Sales Invoices  → Microsoft.NAV.post | send | cancel | cancelAndCreateCreditMemo
+   *
+   * Standard actions such as shipAndInvoice / makeInvoice typically return 204 No Content.
+   * An AL action that calls SetResultCode(WebServiceActionResultCode::Created) returns
+   * 201 Created with a Location header and no JSON body.
+   *
+   * @see https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/devenv-creating-and-interacting-with-odatav4-bound-action
    *
    * @example
-   *   const invoice = await client.callAction(
+   *   await client.callAction(
    *     'api/v2.0/companies({companyId})/salesOrders',
    *     'ORDER-GUID',
-   *     'Microsoft.NAV.makeInvoice'
+   *     'Microsoft.NAV.shipAndInvoice'
    *   );
    */
   async callAction<T = unknown>(
