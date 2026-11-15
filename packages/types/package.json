@@ -2,20 +2,39 @@
   "name": "@ilmora/bc-types",
   "version": "0.1.0",
   "description": "Shared TypeScript types for the Business Central SDK",
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch"
   },
-  "keywords": ["business-central", "bc", "typescript", "odata"],
-  "license": "MIT"
+  "keywords": [
+    "business-central",
+    "bc",
+    "typescript",
+    "odata"
+  ],
+  "license": "MIT",
+  "author": "Ilmora",
+  "homepage": "https://github.com/hassannazeer/ibs-bcstudio/tree/main/packages/types#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hassannazeer/ibs-bcstudio.git",
+    "directory": "packages/types"
+  },
+  "bugs": {
+    "url": "https://github.com/hassannazeer/ibs-bcstudio/issues"
+  }
 }

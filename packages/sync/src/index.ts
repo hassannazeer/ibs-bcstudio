@@ -37,8 +37,6 @@
 import { BCClient } from '@ilmora/bc-client';
 import type { SyncJobConfig, SyncResult, SyncFieldMapping } from '@ilmora/bc-types';
 
-export type { SyncAdapter } from './adapter.js';
-
 // ── Adapter interface ─────────────────────────────────────────────────────────
 
 export interface SyncAdapter {
@@ -124,6 +122,7 @@ export class BCSyncEngine {
     const warnings: string[] = [];
     let   pagesFetched = 0;
     let   filterApplied = false;
+    let   filterCutoff: string | undefined;
 
     try {
       // ── Optional destination verification ──────────────────────────────────
@@ -144,7 +143,6 @@ export class BCSyncEngine {
       }
 
       // $filter for incremental mode
-      let filterCutoff: string | undefined;
       const useIncremental =
         config.syncMode === 'incremental' &&
         config.incrementalField &&
