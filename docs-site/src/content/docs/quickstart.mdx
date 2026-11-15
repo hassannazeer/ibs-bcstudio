@@ -13,9 +13,9 @@ These samples match the APIs in the repository. Registry install commands are [c
     import { BCClient } from '@ilmora/bc-client';
 
     const client = new BCClient({
-      tenantId:     process.env.BC_TENANT_ID,
-      clientId:     process.env.BC_CLIENT_ID,
-      clientSecret: process.env.BC_CLIENT_SECRET,
+      tenantId:     process.env.BC_TENANT_ID!,
+      clientId:     process.env.BC_CLIENT_ID!,
+      clientSecret: process.env.BC_CLIENT_SECRET!,
       environment:  'production',
       companyId:    process.env.BC_COMPANY_ID,
     });
@@ -50,6 +50,7 @@ These samples match the APIs in the repository. Registry install commands are [c
 
     ```ts
     const id = await client.resolveCompanyId('CRONUS International Ltd.');
+    if (!id) throw new Error('Company not found');
     const scoped = client.withCompany(id);
     ```
   </TabItem>
