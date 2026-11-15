@@ -20,15 +20,11 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: npm
 
-      # Root npm ci installs workspace + root devDeps (tsc).
-      # Build every package that is published, in dependency order.
+      # v0.1.0: publish only types then client. metadata/sync stay private.
       - run: npm ci
       - run: npm run build -w @ilmora/bc-types
       - run: npm run build -w @ilmora/bc-client
-      - run: npm run build -w @ilmora/bc-metadata
-      - run: npm run build -w @ilmora/bc-sync
 
-      # Publish each package (skip private/root). Types first, then dependents.
       - name: Publish @ilmora/bc-types
         run: npm publish --access public --provenance
         working-directory: packages/types
@@ -38,18 +34,6 @@ jobs:
       - name: Publish @ilmora/bc-client
         run: npm publish --access public --provenance
         working-directory: packages/client
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish @ilmora/bc-metadata
-        run: npm publish --access public --provenance
-        working-directory: packages/metadata
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish @ilmora/bc-sync
-        run: npm publish --access public --provenance
-        working-directory: packages/sync
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

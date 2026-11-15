@@ -1,6 +1,7 @@
 {
   "name": "@ilmora/bc-metadata",
   "version": "0.1.0",
+  "private": true,
   "description": "Discover BC API endpoints and parse $metadata schemas at runtime",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
