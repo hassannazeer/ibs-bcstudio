@@ -1,0 +1,163 @@
+---
+title: Business Central API SDK by Ilmora
+description: Open-source Business Central API SDK by Ilmora, for TypeScript, Python and PHP. Handles OAuth2, OData filters, ETag, pagination and bound actions.
+template: splash
+prev: false
+next: false
+hero:
+  title: BCStudio by Ilmora
+  tagline: A Business Central API SDK that handles the traps that are easy to miss.
+  image:
+    file: ../../assets/bcstudio-hero.png
+    alt: BCStudio by Ilmora, open-source Business Central API SDK for TypeScript, Python and PHP.
+  actions:
+    - text: Get the code on GitHub
+      link: https://github.com/hassannazeer/ibs-bcstudio
+      icon: github
+      variant: primary
+    - text: Quickstart
+      link: /quickstart/
+      variant: minimal
+---
+
+import { Tabs, TabItem, Card, CardGrid, Aside, LinkButton } from '@astrojs/starlight/components';
+
+Ilmora builds software on Microsoft Dynamics 365 Business Central. BCStudio is our open-source SDK for TypeScript, Python and PHP. It is free under the MIT license.
+
+<div class="badge-row">
+  <span>License: MIT</span>
+  <a href="https://github.com/hassannazeer/ibs-bcstudio">Source: GitHub</a>
+  <span>TypeScript, Python, PHP</span>
+</div>
+
+## Install
+
+Registry packages are not published yet. Until they are, clone the repository. The tab commands below are the intended names after publish.
+
+```bash
+git clone https://github.com/hassannazeer/ibs-bcstudio.git
+```
+
+<Tabs>
+  <TabItem label="TypeScript">
+    Coming soon on npm:
+
+    ```bash
+    npm i @ilmora/bc-client
+    ```
+
+    Optional companions in the same repository: `@ilmora/bc-types`, `@ilmora/bc-metadata`, `@ilmora/bc-sync`.
+  </TabItem>
+  <TabItem label="PHP">
+    Coming soon on Packagist. The Composer name is `ilmora/ibs-bcstudio`.
+
+    ```bash
+    composer require ilmora/ibs-bcstudio
+    ```
+
+    Source and Composer both use the `BCStudio\` namespace. A usage sample stays off this page until Packagist publish.
+  </TabItem>
+  <TabItem label="Python">
+    Coming soon on PyPI. The project name is `ibs-bcstudio`.
+
+    ```bash
+    pip install ibs-bcstudio
+    ```
+  </TabItem>
+</Tabs>
+
+<LinkButton href="/install/">Full install notes</LinkButton>
+
+## Quickstart
+
+TypeScript, matching the `@ilmora/bc-client` API. `patch()` and `delete()` require the ETag (or `*` if you deliberately skip the concurrency check). `getAll()` follows `@odata.nextLink` until the set is complete.
+
+```ts
+import { BCClient } from '@ilmora/bc-client';
+
+const client = new BCClient({
+  tenantId:     process.env.BC_TENANT_ID!,
+  clientId:     process.env.BC_CLIENT_ID!,
+  clientSecret: process.env.BC_CLIENT_SECRET!,
+  environment:  'production',
+  companyId:    process.env.BC_COMPANY_ID,
+});
+
+const customers = await client.getAll(
+  'api/v2.0/companies({companyId})/customers',
+  {
+    odataOptions: {
+      top:    50,
+      select: ['id', 'number', 'displayName'],
+      filter: [{ field: 'blocked', op: 'eq', value: false }],
+    },
+  }
+);
+
+const record = await client.getOne(
+  'api/v2.0/companies({companyId})/customers',
+  customers[0].id
+);
+
+await client.patch(
+  'api/v2.0/companies({companyId})/customers',
+  customers[0].id,
+  { displayName: 'Updated name' },
+  record.etag
+);
+```
+
+<LinkButton href="/quickstart/">Language-by-language quickstart</LinkButton>
+
+## What it handles
+
+<CardGrid>
+  <Card title="Filters" icon="magnifier">
+    The SDK can detect a `$filter` that was ignored on some custom API pages, and apply the filter in memory.
+  </Card>
+  <Card title="ETag" icon="approve-check">
+    `patch()` and `delete()` require the ETag. Learn documents the `If-Match` header; a missing header fails the call.
+  </Card>
+  <Card title="Retry" icon="reload">
+    The client retries on HTTP 429 and, when Business Central sends `Retry-After`, waits for that value.
+  </Card>
+  <Card title="Pagination" icon="list-format">
+    `getAll()` follows the `@odata.nextLink` until the set is complete. Page size is not something you can assume.
+  </Card>
+  <Card title="Bound actions" icon="seti:todo">
+    Standard `shipAndInvoice` and `receiveAndInvoice` return 204. `SetResultCode(Created)` returns 201 with a Location header and no body. `callAction()` reports the status.
+  </Card>
+  <Card title="Company ID" icon="setting">
+    Set `companyId` once, use the `{companyId}` placeholder in paths, or call `withCompany()` / `resolveCompanyId()`.
+  </Card>
+</CardGrid>
+
+<LinkButton href="/traps/">The seven traps in full</LinkButton>
+
+## Packages and links
+
+- TypeScript: `@ilmora/bc-client`, `@ilmora/bc-types`, `@ilmora/bc-metadata`, `@ilmora/bc-sync` (coming soon on npm)
+- Python and PHP ports live under `sdks/` in the [same repository](https://github.com/hassannazeer/ibs-bcstudio)
+- You only need the packages you use. You do not need to be an Ilmora customer to use it.
+
+[Packages](/packages/) · [License](/license/) · [Issues](https://github.com/hassannazeer/ibs-bcstudio/issues) · [Talk to Ilmora](https://ilmora.tech/Contact)
+
+## Who it is for
+
+Developers and integrators building Connect apps or sync jobs against Business Central API v2.0 or custom API pages.
+
+## FAQ
+
+**Is BCStudio free?** Yes. It is open source under the MIT license.
+
+**Is Ilmora affiliated with Microsoft?** No. We work with Microsoft Dynamics 365 Business Central. BCStudio is an independent Ilmora project and is not affiliated with, endorsed by or sponsored by Microsoft.
+
+**Which languages are supported?** TypeScript, Python and PHP, in one repository.
+
+**Where do I report issues?** [github.com/hassannazeer/ibs-bcstudio/issues](https://github.com/hassannazeer/ibs-bcstudio/issues)
+
+**How do I get help from Ilmora?** Use [ilmora.tech/Contact](https://ilmora.tech/Contact) or email hello@ilmora.tech.
+
+<p class="trademark">
+  Microsoft, Dynamics 365 and Microsoft Dynamics 365 Business Central are trademarks of the Microsoft group of companies. BCStudio is an independent open-source project from Ilmora. It is not affiliated with, endorsed by or sponsored by Microsoft.
+</p>

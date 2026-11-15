@@ -1,0 +1,109 @@
+@import '@fontsource/amaranth/400.css';
+@import '@fontsource/amaranth/700.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+
+:root {
+  --sl-font: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --sl-font-system: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --ilmora-navy: #043f6e;
+  --ilmora-ink: #021f2d;
+  --ilmora-blue: #0a79b9;
+  --ilmora-cyan: #06b6c9;
+  --ilmora-mist: #e1ede6;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d7ebf6;
+  --sl-color-accent: #0a79b9;
+  --sl-color-accent-high: #043f6e;
+  --sl-color-white: #021f2d;
+  --sl-color-gray-1: #13293e;
+  --sl-color-gray-2: #0e3a46;
+  --sl-color-gray-3: #3d5a70;
+  --sl-color-gray-4: #8aa0b3;
+  --sl-color-gray-5: #c5d3de;
+  --sl-color-gray-6: #e3eaf2;
+  --sl-color-gray-7: #f5f8fb;
+  --sl-color-black: #ffffff;
+  --sl-color-bg: #f5f8fb;
+  --sl-color-bg-nav: #043f6e;
+  --sl-color-bg-sidebar: #ffffff;
+  --sl-color-hairline: #e3eaf2;
+  --sl-color-text: #021f2d;
+  --sl-color-text-accent: #0a79b9;
+}
+
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #0d2a47;
+  --sl-color-accent: #24b5ff;
+  --sl-color-accent-high: #a7e9ff;
+  --sl-color-white: #e6ecf5;
+  --sl-color-black: #071422;
+  --sl-color-bg: #071422;
+  --sl-color-bg-nav: #0d2a47;
+  --sl-color-bg-sidebar: #0f1f33;
+  --sl-color-hairline: #1a2e45;
+  --sl-color-text: #e6ecf5;
+  --sl-color-text-accent: #24b5ff;
+  --sl-color-gray-1: #e6ecf5;
+  --sl-color-gray-2: #c9d4e3;
+  --sl-color-gray-3: #8aa0b3;
+  --sl-color-gray-4: #2b3f5a;
+  --sl-color-gray-5: #1a2e45;
+  --sl-color-gray-6: #0f1f33;
+  --sl-color-gray-7: #0d2a47;
+}
+
+h1,
+h2,
+h3,
+.hero h1,
+.site-title {
+  font-family: 'Amaranth', 'Inter', ui-sans-serif, sans-serif;
+  font-weight: 700;
+}
+
+.hero img,
+.hero picture img {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(2, 31, 45, 0.08);
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.badge-row span,
+.badge-row a {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1px solid var(--sl-color-hairline);
+  background: var(--sl-color-gray-7);
+  color: var(--sl-color-text);
+}
+
+:root[data-theme='light'] header.header {
+  background: #ffffff;
+  border-bottom: 1px solid #e3eaf2;
+}
+
+:root[data-theme='light'] header.header .site-title {
+  color: #021f2d;
+}
+
+.trademark {
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  color: var(--sl-color-gray-3);
+}

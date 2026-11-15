@@ -1,0 +1,21 @@
+{
+  "name": "bcstudio-docs",
+  "private": true,
+  "type": "module",
+  "description": "BCStudio docs site (Starlight), published at https://dev.ilmora.tech",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "sync": "node scripts/sync-docs.mjs",
+    "dev": "npm run sync && ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "npm run sync && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.43.1",
+    "@fontsource/amaranth": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "astro": "^7.2.10"
+  }
+}
