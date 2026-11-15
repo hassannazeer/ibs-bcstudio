@@ -20,10 +20,12 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: npm
 
-      - run: npm ci --workspaces
-      - run: npm run build --workspaces --if-present
+      # Mirror ci.yml: root npm ci installs workspace + root devDeps (tsc).
+      - run: npm ci
+      - run: npm run build -w @ilmora/bc-types
+      - run: npm run build -w @ilmora/bc-client
 
-      # Publish each package (skip private/root)
+      # Publish each package (skip private/root). Types first, then client.
       - name: Publish @ilmora/bc-types
         run: npm publish --access public --provenance
         working-directory: packages/types
