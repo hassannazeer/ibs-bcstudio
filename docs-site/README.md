@@ -1,6 +1,6 @@
 # BCStudio docs site
 
-Starlight (Astro) docs for BCStudio, meant to be published at https://docs.ilmora.tech on the free Cloudflare Pages plan.
+Starlight (Astro) docs for BCStudio, meant to be published at https://dev.ilmora.tech on the free Cloudflare Pages plan.
 
 This folder is a standalone Node project. It is not part of the repository npm workspaces. A Cloudflare Pages build with root directory `docs-site` only installs the dependencies listed here.
 
@@ -10,7 +10,7 @@ On every build, `scripts/sync-docs.mjs` copies `../docs/*.md` into `src/content/
 
 With Cloudflare Pages Git integration on this repository:
 
-- Every push to `main` redeploys production at https://docs.ilmora.tech
+- Every push to `main` redeploys production at https://dev.ilmora.tech
 - Every branch and pull request gets a preview URL
 
 You do not need a webhook or a cron job. The Pages project watches the GitHub repo.
@@ -69,9 +69,9 @@ Do not enable SSR or the Cloudflare adapter. This site is a static Astro build. 
 
 ### Custom domain
 
-1. In the Pages project, open Custom domains and add `docs.ilmora.tech`.
-2. In DNS for `ilmora.tech`, add the CNAME (or the records Cloudflare shows) for `docs` pointing at the project `pages.dev` hostname.
-3. Wait for HTTPS to become active, then confirm https://docs.ilmora.tech and a known page such as https://docs.ilmora.tech/quickstart/.
+1. In the Pages project, open Custom domains and add `dev.ilmora.tech`.
+2. In DNS for `ilmora.tech`, add the CNAME (or the records Cloudflare shows) for `dev` pointing at the project `pages.dev` hostname.
+3. Wait for HTTPS to become active, then confirm https://dev.ilmora.tech and a known page such as https://dev.ilmora.tech/quickstart/.
 
 ### Confirm that a push redeploys
 

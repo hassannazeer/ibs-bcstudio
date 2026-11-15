@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
-const site = 'https://docs.ilmora.tech';
+const site = 'https://dev.ilmora.tech';
 
 export default defineConfig({
   site,
