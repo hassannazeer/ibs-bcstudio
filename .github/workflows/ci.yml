@@ -21,6 +21,8 @@ jobs:
       - run: npm ci
       - run: npm run build -w @ilmora/bc-types
       - run: npm run build -w @ilmora/bc-client
+      - run: npm run build -w @ilmora/bc-metadata
+      - run: npm run build -w @ilmora/bc-sync
       - run: npm test -w @ilmora/bc-client
 
   python-check:
