@@ -91,4 +91,4 @@ As of 15 November 2026 the TypeScript, PHP and Python packages are not on npm, P
 - No em dashes
 - No Microsoft partner or certification claims, no MIRA endorsement, no pricing, no invented statistics
 - Facts must match the repository APIs and Microsoft Learn
-- PHP samples stay off the site until the namespace and autoload map match
+- PHP samples stay off the site until Packagist publish (namespace is already `BCStudio\`)

@@ -26,7 +26,7 @@ As of 15 November 2026 none of these packages are on npm, Packagist or PyPI. Ins
 
 | Composer name | Path | Note |
 |---|---|---|
-| `ilmora/ibs-bcstudio` | `sdks/php` | Coming soon. A usage sample is held back until the source namespace matches the autoload map (`IbsBCStudio\\` in composer.json, `BCStudio` in the source). |
+| `ilmora/ibs-bcstudio` | `sdks/php` | Coming soon on Packagist. Namespace is `BCStudio\` (source and Composer autoload). |
 
 ## Source and issues
 
