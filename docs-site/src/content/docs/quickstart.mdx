@@ -1,0 +1,103 @@
+---
+title: Quickstart
+description: Connect to Business Central, read customers and patch one with the ETag, in TypeScript and Python.
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+These samples match the APIs in the repository. Registry install commands are [coming soon](/install/). Until then, clone the repo and import from the local packages.
+
+<Tabs>
+  <TabItem label="TypeScript">
+    ```ts
+    import { BCClient } from '@ilmora/bc-client';
+
+    const client = new BCClient({
+      tenantId:     process.env.BC_TENANT_ID,
+      clientId:     process.env.BC_CLIENT_ID,
+      clientSecret: process.env.BC_CLIENT_SECRET,
+      environment:  'production',
+      companyId:    process.env.BC_COMPANY_ID,
+    });
+
+    const customers = await client.getAll(
+      'api/v2.0/companies({companyId})/customers',
+      {
+        odataOptions: {
+          top:    50,
+          select: ['id', 'number', 'displayName'],
+          filter: [{ field: 'blocked', op: 'eq', value: false }],
+        },
+      }
+    );
+
+    const record = await client.getOne(
+      'api/v2.0/companies({companyId})/customers',
+      customers[0].id
+    );
+
+    await client.patch(
+      'api/v2.0/companies({companyId})/customers',
+      customers[0].id,
+      { displayName: 'Updated name' },
+      record.etag
+    );
+    ```
+
+    `patch()` and `delete()` require the ETag. Pass `*` only if you deliberately skip the concurrency check. `getAll()` follows `@odata.nextLink` until the set is complete.
+
+    To discover a company ID by name:
+
+    ```ts
+    const id = await client.resolveCompanyId('CRONUS International Ltd.');
+    const scoped = client.withCompany(id);
+    ```
+  </TabItem>
+  <TabItem label="Python">
+    The project name is `ibs-bcstudio` (coming soon on PyPI). The import name is `bcstudio`.
+
+    ```python
+    import os
+    from bcstudio import BCClient
+    from bcstudio.client import BCConnectionConfig
+
+    client = BCClient(BCConnectionConfig(
+        tenant_id=os.environ["BC_TENANT_ID"],
+        client_id=os.environ["BC_CLIENT_ID"],
+        client_secret=os.environ["BC_CLIENT_SECRET"],
+        environment="production",
+        company_id=os.environ["BC_COMPANY_ID"],
+    ))
+
+    customers = client.get_all(
+        "api/v2.0/companies({companyId})/customers",
+        {
+            "top": 50,
+            "select": ["id", "number", "displayName"],
+            "filter": "blocked eq false",
+        },
+    )
+
+    record = client.get_one(
+        "api/v2.0/companies({companyId})/customers",
+        customers[0]["id"],
+    )
+
+    client.patch(
+        "api/v2.0/companies({companyId})/customers",
+        customers[0]["id"],
+        {"displayName": "Updated name"},
+        record.etag,
+    )
+    ```
+
+    `patch()` and `delete()` require the ETag. `get_all()` follows `@odata.nextLink` until the set is complete.
+  </TabItem>
+  <TabItem label="PHP">
+    <Aside type="caution" title="PHP sample not shown yet">
+    The Composer name is `ilmora/ibs-bcstudio` (coming soon on Packagist). A copy-paste sample is held back because the source namespace is `BCStudio`, while `composer.json` autoloads `IbsBCStudio\\`. Use the TypeScript or Python samples until that is fixed in the repository.
+    </Aside>
+  </TabItem>
+</Tabs>
+
+Next: [the traps the SDK handles](/traps/), or the [OData builder](/guides/odata-builder/) and [CRUD and ETag](/guides/crud-etag/) guides from the repo.

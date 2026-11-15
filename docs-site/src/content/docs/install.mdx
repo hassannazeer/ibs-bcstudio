@@ -1,0 +1,66 @@
+---
+title: Install
+description: Install BCStudio from GitHub today, and the intended npm, Packagist and PyPI commands for when the packages are published.
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="Coming soon on the package registries">
+As of 15 November 2026, `@ilmora/bc-client` is not on npm, `ilmora/ibs-bcstudio` is not on Packagist, and `ibs-bcstudio` is not on PyPI. The working install today is a git clone. The registry commands below are the intended names after publish. They will fail if you run them today.
+</Aside>
+
+## Clone the repository
+
+```bash
+git clone https://github.com/hassannazeer/ibs-bcstudio.git
+```
+
+TypeScript packages live under `packages/`. The Python port is `sdks/python`. The PHP port is `sdks/php`.
+
+## After the packages are published
+
+<Tabs>
+  <TabItem label="TypeScript">
+    ```bash
+    npm i @ilmora/bc-client
+    ```
+
+    Optional companions from the same repository:
+
+    ```bash
+    npm i @ilmora/bc-types @ilmora/bc-metadata @ilmora/bc-sync
+    ```
+
+    You only need the packages you use.
+  </TabItem>
+  <TabItem label="PHP">
+    The Composer package name in `sdks/php/composer.json` is `ilmora/ibs-bcstudio`.
+
+    ```bash
+    composer require ilmora/ibs-bcstudio
+    ```
+
+    Do not use `composer require bcstudio/bc-sdk`. That name appears in an older README and does not match the manifest.
+
+    A PHP usage sample is not shown here yet: the source namespace is `BCStudio`, but `composer.json` autoloads `IbsBCStudio\\`. That needs a fix in the repository before a PHP example belongs on this site.
+  </TabItem>
+  <TabItem label="Python">
+    The project name in `sdks/python/pyproject.toml` is `ibs-bcstudio`. The import name is `bcstudio`.
+
+    ```bash
+    pip install ibs-bcstudio
+    ```
+
+    Do not use `pip install bcstudio`. That name appears in an older README and does not match the manifest.
+  </TabItem>
+</Tabs>
+
+## Prerequisites
+
+You need a Microsoft Entra ID app registration with:
+
+- The `client_credentials` grant type
+- API permission for Dynamics 365 Business Central, such as `Financials.ReadWrite.All`
+- Your Business Central environment name (`production`, `sandbox`, or a named sandbox)
+
+Set `BC_TENANT_ID`, `BC_CLIENT_ID`, `BC_CLIENT_SECRET` and `BC_COMPANY_ID` in the environment when you follow the [quickstart](/quickstart/).
