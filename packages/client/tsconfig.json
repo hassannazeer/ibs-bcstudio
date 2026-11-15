@@ -2,10 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "@bcstudio/types": ["../types/src"]
-    }
+    "rootDir": "./src"
   },
   "include": ["src/**/*"]
 }
