@@ -12,12 +12,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IbsBCStudio\\": "src/"
+            "BCStudio\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IbsBCStudio\\Tests\\": "tests/"
+            "BCStudio\\Tests\\": "tests/"
         }
     }
 }
